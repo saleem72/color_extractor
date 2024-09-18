@@ -1,14 +1,11 @@
 //
-import 'package:color_extractor/features/home_screen/domain/models/color_decode_result.dart';
+import 'package:color_extractor/core/extensions/build_context_extension.dart';
 import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_core/views/failure_view.dart';
 
-import 'package:color_extractor/core/extensions/build_context_extension.dart';
-import 'package:color_extractor/features/home_screen/domain/models/color_rgb_structure.dart';
-
-import 'rgb_color_tile.dart';
+import 'color_variation_card.dart';
 
 class ColorVariationsView extends StatelessWidget {
   const ColorVariationsView({
@@ -42,6 +39,7 @@ class ColorVariationsView extends StatelessWidget {
           child: variation == null
               ? const SizedBox.shrink()
               : SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     children: [
                       const SizedBox(height: 16),
@@ -79,125 +77,6 @@ class ColorVariationsView extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class ColorVariationCard extends StatelessWidget {
-  const ColorVariationCard({
-    super.key,
-    required this.variation,
-  });
-
-  final ColorDecodeResult variation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Color palettes',
-              style: context.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 48),
-            Text(
-              'PRIMARY',
-              style: context.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            ColorShadesList(shades: variation.primary.shades.reversed.toList()),
-            const SizedBox(height: 16),
-            Text(
-              'COMPLEMENTARY',
-              style: context.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            ColorShadesList(
-                shades: variation.complementary.shades.reversed.toList()),
-            const SizedBox(height: 16),
-            Text(
-              'Analogous',
-              style: context.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            ColorShadesList(
-              shades: variation.analogous1.shades.reversed.toList(),
-              showValues: false,
-            ),
-            const SizedBox(height: 4),
-            ColorShadesList(
-                shades: variation.analogous2.shades.reversed.toList()),
-            const SizedBox(height: 16),
-            Text(
-              'Triadic',
-              style: context.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            ColorShadesList(
-              shades: variation.triadic1.shades.reversed.toList(),
-              showValues: false,
-            ),
-            const SizedBox(height: 4),
-            ColorShadesList(
-                shades: variation.triadic2.shades.reversed.toList()),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ColorShadesList extends StatelessWidget {
-  const ColorShadesList({
-    super.key,
-    required this.shades,
-    this.showValues = true,
-  });
-
-  final List<ColorRGBStructure> shades;
-  final bool showValues;
-
-  @override
-  Widget build(BuildContext context) {
-    final degrees =
-        [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].reversed.toList();
-    return SizedBox(
-      height: showValues ? 80 : 60,
-      child: ListView.builder(
-        itemCount: shades.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          final rgbColor = shades[index];
-          return RGBColorTile(
-            isSelected: rgbColor.isSelected,
-            color: rgbColor.color,
-            hex: rgbColor.hex,
-            label: degrees[index].toString(),
-            showValues: showValues,
-          );
-        },
-      ),
     );
   }
 }

@@ -72,6 +72,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeShadowChangedEvent>(_onShadowChangedEvent);
     on<HomeCopyPalletToClipboardEvent>(_onCopyPalletToClipboardEvent);
     on<HomeHideClipMessageEvent>(_onHideClipMessageEvent);
+    on<HomeSetMainColorEvent>(_onSetMainColorEvent);
   }
 
   @override
@@ -723,5 +724,103 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) {
     emit(state.copyWith(showClipMessage: false));
+  }
+
+  FutureOr<void> _onSetMainColorEvent(
+    HomeSetMainColorEvent event,
+    Emitter<HomeState> emit,
+  ) {
+    final color = event.value;
+    switch (event.type) {
+      case ColorType.primary:
+        emit(
+          state.copyWith(
+            primaryMaterialColor: color,
+            lightColorScheme: state.lightColorScheme.copyWith(
+              primary: color.shade500,
+              onPrimary: color.shade50,
+              primaryContainer: color.shade300,
+              onPrimaryContainer: color.shade50,
+              inversePrimary: color.shade700,
+            ),
+          ),
+        );
+      case ColorType.secondary:
+        emit(
+          state.copyWith(
+            secondaryMaterialColor: color,
+            lightColorScheme: state.lightColorScheme.copyWith(
+              secondary: color.shade500,
+              onSecondary: color.shade50,
+              secondaryContainer: color.shade300,
+              onSecondaryContainer: color.shade50,
+            ),
+          ),
+        );
+      case ColorType.tertiary:
+        emit(
+          state.copyWith(
+            tertiaryMaterialColor: color,
+            lightColorScheme: state.lightColorScheme.copyWith(
+              tertiary: color.shade500,
+              onTertiary: color.shade50,
+              tertiaryContainer: color.shade300,
+              onTertiaryContainer: color.shade50,
+            ),
+          ),
+        );
+      case ColorType.error:
+        emit(
+          state.copyWith(
+            errorMaterialColor: color,
+            lightColorScheme: state.lightColorScheme.copyWith(
+              error: color.shade500,
+              onError: color.shade50,
+              errorContainer: color.shade300,
+              onErrorContainer: color.shade50,
+            ),
+          ),
+        );
+      case ColorType.neutral:
+        emit(
+          state.copyWith(
+            neutralMaterialColor: color,
+            darkColorScheme: state.darkColorScheme.copyWith(
+              scaffoldBackground: color.shade700,
+              background: color.shade900,
+              onBackground: color.shade50,
+              surface: color.shade900,
+              onSurface: color.shade50,
+              surfaceVariant: color.shade500,
+              onSurfaceVariant: color.shade900,
+              outline: color.shade500,
+              outlineVariant: color.shade500,
+              shadow: color.shade900,
+              scrim: color.shade900,
+              inverseSurface: color.shade400,
+            ),
+          ),
+        );
+      case ColorType.neutralVariant:
+        emit(
+          state.copyWith(
+            neutralVariantMaterialColor: color,
+            lightColorScheme: state.lightColorScheme.copyWith(
+              scaffoldBackground: color.shade50,
+              background: color.shade100,
+              onBackground: color.shade900,
+              surface: color.shade200,
+              onSurface: color.shade900,
+              surfaceVariant: color.shade100,
+              onSurfaceVariant: color.shade900,
+              outline: color.shade700,
+              outlineVariant: color.shade500,
+              shadow: color.shade900,
+              scrim: color.shade900,
+              inverseSurface: color.shade700,
+            ),
+          ),
+        );
+    }
   }
 }

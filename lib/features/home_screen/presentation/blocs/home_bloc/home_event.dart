@@ -219,3 +219,12 @@ class HomeToggleStatusEvent extends HomeEvent {}
 class HomeCopyPalletToClipboardEvent extends HomeEvent {}
 
 class HomeHideClipMessageEvent extends HomeEvent {}
+
+class HomeSetMainColorEvent extends HomeEvent {
+  final MaterialColor value;
+  final ColorType type;
+  const HomeSetMainColorEvent({
+    required this.value,
+    required this.type,
+  });
+}

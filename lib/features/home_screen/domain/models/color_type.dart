@@ -30,3 +30,5 @@ enum ColorShade {
   shade800,
   shade900;
 }
+
+const colorDegrees = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
