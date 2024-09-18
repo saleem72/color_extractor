@@ -2,9 +2,9 @@
 
 import 'package:collection/collection.dart';
 import 'package:color_extractor/core/data/dtos/material_color_dto.dart';
-import 'package:color_extractor/core/domain/errors/failure.dart';
 import 'package:color_extractor/core/domain/models/app_color.dart';
 import 'package:dartz/dartz.dart';
+import 'package:my_core/my_core.dart';
 
 class HomeRepository {
   Either<Failure, List<AppColor>> decodeJson(String json) {

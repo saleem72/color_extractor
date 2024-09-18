@@ -178,7 +178,7 @@ class ThemeProvider {
       brightness: Brightness.light,
       colorScheme: colorScheme,
       textTheme: textTheme,
-      scaffoldBackgroundColor: colorScheme.background,
+      scaffoldBackgroundColor: const Color(0xFFF2F2F2),
       appBarTheme: const AppBarTheme(
         backgroundColor: Color(0xFF90C44B),
         foregroundColor: Color(0xFFEDF5E1),
@@ -194,7 +194,7 @@ class ThemeProvider {
       brightness: Brightness.dark,
       colorScheme: colorScheme,
       textTheme: textTheme,
-      scaffoldBackgroundColor: colorScheme.background,
+      scaffoldBackgroundColor: const Color(0xFF474944),
       appBarTheme: const AppBarTheme(
         backgroundColor: Color(0xFF90C44B),
         foregroundColor: Color(0xFFEDF5E1),

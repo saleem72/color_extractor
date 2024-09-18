@@ -3,33 +3,34 @@
 import 'package:color_extractor/features/home_screen/domain/models/home_view.dart';
 import 'package:color_extractor/features/home_screen/presentation/widgets/color_json_to_pallet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'presentation/blocs/home_bloc/home_bloc.dart';
 import 'presentation/widgets/color_variations_view.dart';
 import 'presentation/widgets/pallet_view.dart';
 import 'presentation/widgets/side_bar.dart';
 
-class HomeScreen extends StatelessWidget {
+// class HomeScreen extends StatelessWidget {
+//   const HomeScreen({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocProvider(
+//       create: (context) => HomeBloc(
+//         repository: HomeRepository(),
+//         converter: StringToColor(),
+//       ),
+//       child: const HomeScreenContent(),
+//     );
+//   }
+// }
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeBloc(),
-      child: const HomeScreenContent(),
-    );
-  }
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class HomeScreenContent extends StatefulWidget {
-  const HomeScreenContent({super.key});
-
-  @override
-  State<HomeScreenContent> createState() => _HomeScreenContentState();
-}
-
-class _HomeScreenContentState extends State<HomeScreenContent> {
+class _HomeScreenState extends State<HomeScreen> {
   HomeView _selectedView = HomeView.json;
   @override
   Widget build(BuildContext context) {

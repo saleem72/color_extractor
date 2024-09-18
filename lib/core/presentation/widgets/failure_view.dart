@@ -1,8 +1,7 @@
 //
 
-import 'package:color_extractor/core/domain/errors/failure.dart';
-import 'package:color_extractor/core/extensions/build_context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:my_core/my_core.dart';
 
 class FailureView extends StatelessWidget {
   const FailureView({

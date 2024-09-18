@@ -5,7 +5,7 @@ import 'package:color_extractor/core/data/utils.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_scheme_holder.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_type.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_variant.dart';
-import 'package:color_extractor/features/home_screen/presentation/blocs/pallet_bloc/pallet_bloc.dart';
+import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,7 +26,7 @@ class ColorSchemeView extends StatelessWidget {
         context,
         initialColor: scheme.scaffoldBackground,
         onColorChanged: (color) =>
-            context.read<PalletBloc>().add(PalletScaffoldColorChangedEvent(
+            context.read<HomeBloc>().add(HomeScaffoldColorChangedEvent(
                   value: color,
                   brightness: scheme.brightness,
                 )),
@@ -48,8 +48,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'background',
                     color: scheme.background,
                     onColor: scheme.onBackground,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletBackgroundChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeBackgroundChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -63,8 +63,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'Surface',
                     color: scheme.surface,
                     onColor: scheme.onSurface,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletSurfaceChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeSurfaceChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -74,8 +74,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'surfaceVariant',
                     color: scheme.surfaceVariant,
                     onColor: scheme.onSurfaceVariant,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletSurfaceVariantChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeSurfaceVariantChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -85,8 +85,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'outline',
                     color: scheme.outline,
                     onColor: scheme.onSurface,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletOutLineChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeOutLineChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -96,8 +96,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'outlineVariant',
                     color: scheme.outlineVariant,
                     onColor: scheme.onPrimary,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletOutLineVariantChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeOutLineVariantChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -111,8 +111,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'inversePrimary',
                     color: scheme.inversePrimary,
                     onColor: scheme.onPrimary,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletInversePrimaryChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeInversePrimaryChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -122,8 +122,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'inverseSurface',
                     color: scheme.inverseSurface,
                     onColor: scheme.onPrimary,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletInverseSurfaceChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeInverseSurfaceChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -137,8 +137,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'App Bar',
                     color: scheme.appBar,
                     onColor: scheme.onAppBar,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletAppBarChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeAppBarChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -148,8 +148,8 @@ class ColorSchemeView extends StatelessWidget {
                     label: 'Shadows',
                     color: scheme.shadow,
                     onColor: scheme.background,
-                    onColorChange: (variant) => context.read<PalletBloc>().add(
-                        PalletShadowChangedEvent(
+                    onColorChange: (variant) => context.read<HomeBloc>().add(
+                        HomeShadowChangedEvent(
                             brightness: scheme.brightness, variant: variant)),
                   ),
                 ),
@@ -171,11 +171,11 @@ class ColorSchemeView extends StatelessWidget {
             onMainColor: scheme.onPrimary,
             containerColor: scheme.primaryContainer,
             onContainerColor: scheme.onPrimaryContainer,
-            onMainColorChange: (variant) => context.read<PalletBloc>().add(
-                PalletPrimaryChangedEvent(
+            onMainColorChange: (variant) => context.read<HomeBloc>().add(
+                HomePrimaryChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
-            onMainContainerChange: (variant) => context.read<PalletBloc>().add(
-                PalletPrimaryContainerChangedEvent(
+            onMainContainerChange: (variant) => context.read<HomeBloc>().add(
+                HomePrimaryContainerChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
           ),
         ),
@@ -187,11 +187,11 @@ class ColorSchemeView extends StatelessWidget {
             onMainColor: scheme.onSecondary,
             containerColor: scheme.secondaryContainer,
             onContainerColor: scheme.onSecondaryContainer,
-            onMainColorChange: (variant) => context.read<PalletBloc>().add(
-                PalletSecondaryChangedEvent(
+            onMainColorChange: (variant) => context.read<HomeBloc>().add(
+                HomeSecondaryChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
-            onMainContainerChange: (variant) => context.read<PalletBloc>().add(
-                PalletSecondaryContainerChangedEvent(
+            onMainContainerChange: (variant) => context.read<HomeBloc>().add(
+                HomeSecondaryContainerChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
           ),
         ),
@@ -203,11 +203,11 @@ class ColorSchemeView extends StatelessWidget {
             onMainColor: scheme.onTertiary,
             containerColor: scheme.tertiaryContainer,
             onContainerColor: scheme.onTertiaryContainer,
-            onMainColorChange: (variant) => context.read<PalletBloc>().add(
-                PalletTertiaryChangedEvent(
+            onMainColorChange: (variant) => context.read<HomeBloc>().add(
+                HomeTertiaryChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
-            onMainContainerChange: (variant) => context.read<PalletBloc>().add(
-                PalletTertiaryContainerChangedEvent(
+            onMainContainerChange: (variant) => context.read<HomeBloc>().add(
+                HomeTertiaryContainerChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
           ),
         ),
@@ -219,11 +219,11 @@ class ColorSchemeView extends StatelessWidget {
             onMainColor: scheme.onError,
             containerColor: scheme.errorContainer,
             onContainerColor: scheme.onErrorContainer,
-            onMainColorChange: (variant) => context.read<PalletBloc>().add(
-                PalletErrorChangedEvent(
+            onMainColorChange: (variant) => context.read<HomeBloc>().add(
+                HomeErrorChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
-            onMainContainerChange: (variant) => context.read<PalletBloc>().add(
-                PalletErrorContainerChangedEvent(
+            onMainContainerChange: (variant) => context.read<HomeBloc>().add(
+                HomeErrorContainerChangedEvent(
                     brightness: scheme.brightness, variant: variant)),
           ),
         ),

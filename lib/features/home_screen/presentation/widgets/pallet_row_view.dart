@@ -2,7 +2,7 @@
 
 import 'package:color_extractor/core/presentation/widgets/color_widget.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_type.dart';
-import 'package:color_extractor/features/home_screen/presentation/blocs/pallet_bloc/pallet_bloc.dart';
+import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,14 +54,14 @@ class _PalletRowViewState extends State<PalletRowView> {
   // neutralString: '#b1b3ae',
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PalletBloc, PalletState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return _buildWidget(context, state);
       },
     );
   }
 
-  Widget _buildWidget(BuildContext context, PalletState state) {
+  Widget _buildWidget(BuildContext context, HomeState state) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -70,7 +70,7 @@ class _PalletRowViewState extends State<PalletRowView> {
           color: state.primaryMaterialColor,
           type: ColorType.primary,
           onColorChange: (value) =>
-              context.read<PalletBloc>().add(PalletPrimaryColorChangedEvent(
+              context.read<HomeBloc>().add(HomePrimaryColorChangedEvent(
                     value: value,
                     type: ColorType.primary,
                   )),
@@ -80,7 +80,7 @@ class _PalletRowViewState extends State<PalletRowView> {
           color: state.secondaryMaterialColor,
           type: ColorType.secondary,
           onColorChange: (value) =>
-              context.read<PalletBloc>().add(PalletPrimaryColorChangedEvent(
+              context.read<HomeBloc>().add(HomePrimaryColorChangedEvent(
                     value: value,
                     type: ColorType.secondary,
                   )),
@@ -90,7 +90,7 @@ class _PalletRowViewState extends State<PalletRowView> {
           color: state.tertiaryMaterialColor,
           type: ColorType.tertiary,
           onColorChange: (value) =>
-              context.read<PalletBloc>().add(PalletPrimaryColorChangedEvent(
+              context.read<HomeBloc>().add(HomePrimaryColorChangedEvent(
                     value: value,
                     type: ColorType.tertiary,
                   )),
@@ -100,7 +100,7 @@ class _PalletRowViewState extends State<PalletRowView> {
           color: state.errorMaterialColor,
           type: ColorType.error,
           onColorChange: (value) =>
-              context.read<PalletBloc>().add(PalletPrimaryColorChangedEvent(
+              context.read<HomeBloc>().add(HomePrimaryColorChangedEvent(
                     value: value,
                     type: ColorType.error,
                   )),
@@ -110,7 +110,7 @@ class _PalletRowViewState extends State<PalletRowView> {
           color: state.neutralMaterialColor,
           type: ColorType.neutral,
           onColorChange: (value) =>
-              context.read<PalletBloc>().add(PalletPrimaryColorChangedEvent(
+              context.read<HomeBloc>().add(HomePrimaryColorChangedEvent(
                     value: value,
                     type: ColorType.neutral,
                   )),
@@ -120,7 +120,7 @@ class _PalletRowViewState extends State<PalletRowView> {
           color: state.neutralVariantMaterialColor,
           type: ColorType.neutralVariant,
           onColorChange: (value) =>
-              context.read<PalletBloc>().add(PalletPrimaryColorChangedEvent(
+              context.read<HomeBloc>().add(HomePrimaryColorChangedEvent(
                     value: value,
                     type: ColorType.neutralVariant,
                   )),

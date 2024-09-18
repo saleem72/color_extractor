@@ -1,47 +1,31 @@
 //
 import 'package:color_extractor/features/home_screen/domain/models/color_decode_result.dart';
+import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_core/views/failure_view.dart';
 
 import 'package:color_extractor/core/extensions/build_context_extension.dart';
-import 'package:color_extractor/features/home_screen/data/helpers/string_to_color.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_rgb_structure.dart';
-import 'package:color_extractor/features/home_screen/presentation/blocs/color_variations_bloc/color_variations_bloc.dart';
 
 import 'rgb_color_tile.dart';
 
 class ColorVariationsView extends StatelessWidget {
-  const ColorVariationsView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ColorVariationsBloc(
-        converter: StringToColor(),
-      ),
-      child: const ColorVariationsWidget(),
-    );
-  }
-}
-
-class ColorVariationsWidget extends StatelessWidget {
-  const ColorVariationsWidget({
+  const ColorVariationsView({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ColorVariationsBloc, ColorVariationsState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Stack(
           children: [
             _buildContent(context, state),
             FailureView(
               failure: state.failure,
-              onClose: () => context
-                  .read<ColorVariationsBloc>()
-                  .add(ColorVariationsClearFailureEvent()),
+              onClose: () =>
+                  context.read<HomeBloc>().add(HomeClearErrorEvent()),
             )
           ],
         );
@@ -49,8 +33,8 @@ class ColorVariationsWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildContent(BuildContext context, ColorVariationsState state) {
-    final bloc = context.read<ColorVariationsBloc>();
+  Widget _buildContent(BuildContext context, HomeState state) {
+    final bloc = context.read<HomeBloc>();
     final variation = state.variation;
     return Row(
       children: [
@@ -75,8 +59,8 @@ class ColorVariationsWidget extends StatelessWidget {
                 child: TextField(
                   controller: bloc.hexInput,
                   onChanged: (value) => context
-                      .read<ColorVariationsBloc>()
-                      .add(ColorVariationsHexHasChangedEvent(value: value)),
+                      .read<HomeBloc>()
+                      .add(HomeHexHasChangedEvent(value: value)),
                   decoration: InputDecoration(
                     hintText: 'enter you color as hex number',
                     hintStyle: context.textTheme.bodySmall?.copyWith(
@@ -87,9 +71,8 @@ class ColorVariationsWidget extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               FilledButton(
-                onPressed: () => context
-                    .read<ColorVariationsBloc>()
-                    .add(ColorVariationsDecodeColorEvent()),
+                onPressed: () =>
+                    context.read<HomeBloc>().add(HomeDecodeColorEvent()),
                 child: const Text('Decode'),
               ),
             ],

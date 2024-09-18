@@ -2,10 +2,9 @@
 
 import 'package:color_extractor/core/extensions/build_context_extension.dart';
 import 'package:color_extractor/core/presentation/widgets/failure_view.dart';
-import 'package:color_extractor/features/home_screen/data/repository/pallet_repository.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_scheme_holder.dart';
 import 'package:color_extractor/features/home_screen/domain/models/pallet_status.dart';
-import 'package:color_extractor/features/home_screen/presentation/blocs/pallet_bloc/pallet_bloc.dart';
+import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:color_extractor/features/home_screen/presentation/widgets/color_scheme_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,27 +12,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'pallet_row_view.dart';
 
 class PalletView extends StatelessWidget {
-  const PalletView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PalletBloc(
-        repository: PalletRepository(),
-      ),
-      child: const PalletWidget(),
-    );
-  }
-}
-
-class PalletWidget extends StatelessWidget {
-  const PalletWidget({
+  const PalletView({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PalletBloc, PalletState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Stack(
           children: [
@@ -95,8 +80,8 @@ class PalletWidget extends StatelessWidget {
                       const SizedBox(height: 16),
                       TextButton(
                         onPressed: () => context
-                            .read<PalletBloc>()
-                            .add(PalletHideClipMessageEvent()),
+                            .read<HomeBloc>()
+                            .add(HomeHideClipMessageEvent()),
                         style: TextButton.styleFrom(
                           backgroundColor: context.colorScheme.primary,
                           foregroundColor: context.colorScheme.onPrimary,
@@ -115,7 +100,7 @@ class PalletWidget extends StatelessWidget {
         : const SizedBox.shrink();
   }
 
-  Widget _buildWidget(BuildContext context, PalletState state) {
+  Widget _buildWidget(BuildContext context, HomeState state) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -127,14 +112,14 @@ class PalletWidget extends StatelessWidget {
           FailureView(
             failure: state.failure,
             onClearError: () =>
-                context.read<PalletBloc>().add(PalletClearFailureEvent()),
+                context.read<HomeBloc>().add(HomeClearErrorEvent()),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildPreviewMode(BuildContext context, PalletState state) {
+  Widget _buildPreviewMode(BuildContext context, HomeState state) {
     return Expanded(
       child: Container(
         color: const Color(0xFFE5E5E5),
@@ -170,7 +155,7 @@ class PalletWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildDisplayMode(PalletState state) {
+  Widget _buildDisplayMode(HomeState state) {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
@@ -196,7 +181,7 @@ class PalletWidget extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () =>
-                context.read<PalletBloc>().add(PalletToggleStatusEvent()),
+                context.read<HomeBloc>().add(HomeToggleStatusEvent()),
             icon: Icon(
               Icons.preview,
               color: Theme.of(context).colorScheme.secondary,
@@ -204,7 +189,7 @@ class PalletWidget extends StatelessWidget {
           ),
           IconButton(
             onPressed: () =>
-                context.read<PalletBloc>().add(PalletCopyToClipboardEvent()),
+                context.read<HomeBloc>().add(HomeCopyPalletToClipboardEvent()),
             icon: Icon(
               Icons.copy,
               color: Theme.of(context).colorScheme.secondary,

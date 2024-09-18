@@ -10,24 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_color_card.dart';
 import 'copy_message_view.dart';
 
-class ColorJsonToPallet extends StatefulWidget {
+class ColorJsonToPallet extends StatelessWidget {
   const ColorJsonToPallet({
     super.key,
   });
-  @override
-  State<ColorJsonToPallet> createState() => _ColorJsonToPalletState();
-}
-
-class _ColorJsonToPalletState extends State<ColorJsonToPallet> {
-  final TextEditingController _colorTitle = TextEditingController();
-  final TextEditingController _json = TextEditingController();
-
-  @override
-  void dispose() {
-    _colorTitle.dispose();
-    _json.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +89,12 @@ class _ColorJsonToPalletState extends State<ColorJsonToPallet> {
     );
   }
 
-  Column _inputSection(BuildContext context) {
+  Widget _inputSection(BuildContext context) {
+    final bloc = context.read<HomeBloc>();
     return Column(
       children: [
         AppTextField(
-          controller: _colorTitle,
+          controller: bloc.colorTitle,
           backgroundColor: context.colorScheme.primaryContainer,
           onChanged: (value) => (value) => context
               .read<HomeBloc>()
@@ -124,7 +111,7 @@ class _ColorJsonToPalletState extends State<ColorJsonToPallet> {
             ),
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              controller: _json,
+              controller: bloc.json,
               maxLines: null,
               expands: true,
               style: context.textTheme.titleSmall?.copyWith(
