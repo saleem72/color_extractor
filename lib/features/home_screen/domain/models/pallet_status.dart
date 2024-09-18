@@ -1,0 +1,3 @@
+//
+
+enum PalletStatus { display, preview }
