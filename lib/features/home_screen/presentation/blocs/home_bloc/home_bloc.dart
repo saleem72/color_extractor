@@ -5,11 +5,11 @@ import 'dart:async';
 import 'package:color_extractor/core/domain/models/app_color.dart';
 import 'package:color_extractor/core/domain/models/material_color_source.dart';
 import 'package:color_extractor/core/extensions/color_extension.dart';
-import 'package:color_extractor/features/home_screen/data/helpers/string_to_color.dart';
+import 'package:color_extractor/core/extensions/color_to_material/color_extension.dart';
+import 'package:color_extractor/core/extensions/color_to_material/golden_palettes_definition.dart';
 import 'package:color_extractor/features/home_screen/data/repository/home_repository.dart';
 import 'package:color_extractor/features/home_screen/data/repository/pallet_repository.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_combination.dart';
-import 'package:color_extractor/features/home_screen/domain/models/color_decode_result.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_scheme_holder.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_type.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_variant.dart';
@@ -29,14 +29,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final TextEditingController hexInput = TextEditingController();
   final HomeRepository _homeRepository;
   final PalletRepository _repository;
-  final StringToColor _converter;
   HomeBloc({
     required HomeRepository homeRepository,
-    required StringToColor converter,
     required PalletRepository palletRepository,
   })  : _homeRepository = homeRepository,
         _repository = palletRepository,
-        _converter = converter,
         super(HomeState.initial()) {
     on<HomeColorTitleChangedEvent>(_onColorTitleChangedEvent);
     on<HomeJsonChangedEvent>(_onJsonChangedEvent);
@@ -159,16 +156,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeDecodeColorEvent event,
     Emitter<HomeState> emit,
   ) {
-    final hex = state.hex;
+    try {
+      final hex = state.hex;
+      final hexColor = hex.toColorLocal();
+      final variation = hexColor.createVariation();
 
-    final either = _converter(hex);
-    either.fold(
-      (failure) => emit(state.copyWith(failure: failure)),
-      (result) => emit(state.copyWith(
+      emit(state.copyWith(
         selectedColor: hex.toColor(),
-        variation: result,
-      )),
-    );
+        variation: variation,
+      ));
+    } catch (e) {
+      emit(state.copyWith(failure: GeneralFailure(message: e.toString())));
+    }
   }
 
   FutureOr<void> _onToggleStatusEvent(

@@ -237,7 +237,7 @@ class _MaterialColorSelectorState extends State<MaterialColorSelector> {
   void onColorChanged(Color value) {
     setState(() {
       initialColor = value;
-      _hex.text = value.toHex();
+      _hex.text = value.hex;
     });
   }
 }

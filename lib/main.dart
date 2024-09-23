@@ -1,4 +1,3 @@
-import 'package:color_extractor/features/home_screen/data/helpers/string_to_color.dart';
 import 'package:color_extractor/features/home_screen/data/repository/home_repository.dart';
 import 'package:color_extractor/features/home_screen/data/repository/pallet_repository.dart';
 import 'package:color_extractor/features/home_screen/home_screen.dart';
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
           create: (context) => HomeBloc(
             homeRepository: HomeRepository(),
             palletRepository: PalletRepository(),
-            converter: StringToColor(),
           ),
         ),
       ],

@@ -1,6 +1,5 @@
 //
 
-import 'package:color_extractor/features/home_screen/domain/models/color_rgb_with_name.dart';
 import 'package:color_extractor/features/home_screen/domain/models/color_type.dart';
 import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ class AppPopupMenu extends StatelessWidget {
     super.key,
     required this.rgbColor,
   });
-  final ColorRGBWithName rgbColor;
+  final MaterialColor rgbColor;
   @override
   Widget build(BuildContext context) {
     return MenuAnchor(
@@ -34,7 +33,7 @@ class AppPopupMenu extends StatelessWidget {
                 onPressed: () =>
                     context.read<HomeBloc>().add(HomeSetMainColorEvent(
                           type: e,
-                          value: rgbColor.toMaterialColor(),
+                          value: rgbColor,
                         )),
                 child: Text(e.title),
               ))

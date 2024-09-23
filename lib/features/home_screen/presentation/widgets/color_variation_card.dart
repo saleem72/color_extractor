@@ -1,7 +1,7 @@
 //
 
 import 'package:color_extractor/core/extensions/build_context_extension.dart';
-import 'package:color_extractor/features/home_screen/domain/models/color_decode_result.dart';
+import 'package:color_extractor/core/extensions/color_to_material/golden_palettes_definition.dart';
 import 'package:flutter/material.dart';
 
 import 'app_popup_menu.dart';
@@ -45,11 +45,11 @@ class ColorVariationCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                AppPopupMenu(rgbColor: variation.primary),
+                AppPopupMenu(rgbColor: variation.primary.color),
               ],
             ),
             const SizedBox(height: 8),
-            ColorShadesList(shades: variation.primary.shades.reversed.toList()),
+            ColorShadesList(color: variation.primary),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -59,12 +59,11 @@ class ColorVariationCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                AppPopupMenu(rgbColor: variation.complementary),
+                AppPopupMenu(rgbColor: variation.complementary.color),
               ],
             ),
             const SizedBox(height: 8),
-            ColorShadesList(
-                shades: variation.complementary.shades.reversed.toList()),
+            ColorShadesList(color: variation.complementary),
             const SizedBox(height: 16),
             Row(
               children: [
@@ -74,17 +73,16 @@ class ColorVariationCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                AppPopupMenu(rgbColor: variation.analogous1),
+                AppPopupMenu(rgbColor: variation.analogous1.color),
               ],
             ),
             const SizedBox(height: 8),
             ColorShadesList(
-              shades: variation.analogous1.shades.reversed.toList(),
+              color: variation.analogous1,
               showValues: false,
             ),
             const SizedBox(height: 4),
-            ColorShadesList(
-                shades: variation.analogous2.shades.reversed.toList()),
+            ColorShadesList(color: variation.analogous2),
             const SizedBox(height: 16),
             Text(
               'Triadic',
@@ -94,12 +92,11 @@ class ColorVariationCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             ColorShadesList(
-              shades: variation.triadic1.shades.reversed.toList(),
+              color: variation.triadic1,
               showValues: false,
             ),
             const SizedBox(height: 4),
-            ColorShadesList(
-                shades: variation.triadic2.shades.reversed.toList()),
+            ColorShadesList(color: variation.triadic2),
           ],
         ),
       ),

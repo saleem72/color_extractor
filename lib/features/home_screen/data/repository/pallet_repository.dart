@@ -1,14 +1,11 @@
 //
 
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:color_extractor/core/data/dtos/material_color_dto.dart';
 import 'package:color_extractor/core/domain/models/material_color_source.dart';
 import 'package:color_extractor/core/extensions/color_extension.dart';
+import 'package:color_extractor/core/extensions/color_to_material/color_extension.dart';
 import 'package:color_extractor/features/home_screen/data/repository/home_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:downloadsfolder/downloadsfolder.dart';
 
 class PalletRepository {
   MaterialColor? colorFromSource(MaterialColorSource source) {
@@ -48,17 +45,18 @@ class PalletRepository {
   }
 
   Future<bool> writeFile(String content) async {
-    try {
-      final directory = await getDownloadDirectory();
+    return false;
+    // try {
+    //   final directory = await getDownloadDirectory();
 
-      final download = directory.path;
-      log('Downloads: $download');
-      final file = File('$download/theming.dart');
-      await file.writeAsString(content);
-      return true;
-    } catch (e) {
-      log('Error', name: 'PalletRepository', error: e);
-      return false;
-    }
+    //   final download = directory.path;
+    //   log('Downloads: $download');
+    //   final file = File('$download/theming.dart');
+    //   await file.writeAsString(content);
+    //   return true;
+    // } catch (e) {
+    //   log('Error', name: 'PalletRepository', error: e);
+    //   return false;
+    // }
   }
 }
