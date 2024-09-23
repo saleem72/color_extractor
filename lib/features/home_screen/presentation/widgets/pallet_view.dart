@@ -6,6 +6,7 @@ import 'package:color_extractor/features/home_screen/domain/models/color_scheme_
 import 'package:color_extractor/features/home_screen/domain/models/pallet_status.dart';
 import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
 import 'package:color_extractor/features/home_screen/presentation/widgets/color_scheme_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -262,7 +263,37 @@ class SchemePreviewWidget extends StatelessWidget {
                 style: context.textTheme.bodyLarge?.copyWith(
                   color: scheme.onBackground,
                 ),
-              )
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                decoration: BoxDecoration(
+                  color: scheme.secondary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'Can be',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: scheme.onSecondary,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                decoration: BoxDecoration(
+                  color: scheme.tertiary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'Can be',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: scheme.onTertiary,
+                  ),
+                ),
+              ),
             ],
           ),
           Positioned(

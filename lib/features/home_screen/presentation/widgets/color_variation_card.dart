@@ -73,15 +73,33 @@ class ColorVariationCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                AppPopupMenu(rgbColor: variation.analogous1.color),
               ],
             ),
             const SizedBox(height: 8),
-            ColorShadesList(
-              color: variation.analogous1,
-              showValues: false,
+            Row(
+              children: [
+                Text(
+                  'First',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                AppPopupMenu(rgbColor: variation.analogous1.color),
+              ],
             ),
+            ColorShadesList(color: variation.analogous1),
             const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  'Second',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                AppPopupMenu(rgbColor: variation.analogous2.color),
+              ],
+            ),
             ColorShadesList(color: variation.analogous2),
             const SizedBox(height: 16),
             Text(
@@ -91,11 +109,33 @@ class ColorVariationCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
+            Row(
+              children: [
+                Text(
+                  'First',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                AppPopupMenu(rgbColor: variation.triadic1.color),
+              ],
+            ),
             ColorShadesList(
               color: variation.triadic1,
               showValues: false,
             ),
             const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  'First',
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                AppPopupMenu(rgbColor: variation.triadic2.color),
+              ],
+            ),
             ColorShadesList(color: variation.triadic2),
           ],
         ),

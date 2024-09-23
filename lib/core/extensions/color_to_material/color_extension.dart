@@ -200,16 +200,16 @@ extension ColorToMaterial on Color {
       var newL = colorHCL.lightness -
           lightnessTable[index] / refLightness * deltaLightness;
       newL = math.min(newL, A);
-      var color = HCLColor(
-          _clipRange(newL, 0, 100),
-          math.max(
-              0,
-              chromaThreshold
-                  ? colorHCL.chroma - deltaChroma
-                  : colorHCL.chroma -
-                      deltaChroma *
-                          math.min(chromaTable[index] / refChroma, 1.25)),
-          (colorHCL.hue - deltaHue + 360) % 360);
+      final hCLColorA = _clipRange(newL, 0, 100);
+      final double hCLColorB = math.max(
+        0,
+        chromaThreshold
+            ? colorHCL.chroma - deltaChroma
+            : colorHCL.chroma -
+                deltaChroma * math.min(chromaTable[index] / refChroma, 1.25),
+      );
+      final double hCLColorC = (colorHCL.hue - deltaHue + 360) % 360;
+      var color = HCLColor(hCLColorA, hCLColorB, hCLColorC);
       A = math.max(color.lightness - 1.7, 0);
       var hue = color.hue * math.pi / 180;
       var outputColor = LABColor(
