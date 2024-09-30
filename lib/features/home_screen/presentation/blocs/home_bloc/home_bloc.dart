@@ -90,6 +90,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   _onDecodeJsonEvent(HomeDecodeJsonEvent event, Emitter<HomeState> emit) {
+    if (hexInput.text.trim().isNotEmpty) {
+      final either = _homeRepository.decodeHex(hexInput.text.trim());
+      either.fold(
+        (failure) => emit(state.copyWith(failure: failure)),
+        (colors) => emit(state.copyWith(colors: colors)),
+      );
+      return;
+    }
     final either = _homeRepository.decodeJson(state.json);
     either.fold(
       (failure) => emit(state.copyWith(failure: failure)),

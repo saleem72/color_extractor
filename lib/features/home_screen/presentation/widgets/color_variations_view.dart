@@ -1,6 +1,7 @@
 //
 import 'package:color_extractor/core/extensions/build_context_extension.dart';
 import 'package:color_extractor/features/home_screen/presentation/blocs/home_bloc/home_bloc.dart';
+import 'package:color_extractor/features/home_screen/presentation/widgets/contrast_calculator_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_core/views/failure_view.dart';
@@ -50,11 +51,11 @@ class ColorVariationsView extends StatelessWidget {
         ),
         SizedBox(
           width: 200,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                TextField(
                   controller: bloc.hexInput,
                   onChanged: (value) => context
                       .read<HomeBloc>()
@@ -66,14 +67,16 @@ class ColorVariationsView extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              FilledButton(
-                onPressed: () =>
-                    context.read<HomeBloc>().add(HomeDecodeColorEvent()),
-                child: const Text('Decode'),
-              ),
-            ],
+                const SizedBox(height: 16),
+                FilledButton(
+                  onPressed: () =>
+                      context.read<HomeBloc>().add(HomeDecodeColorEvent()),
+                  child: const Text('Decode'),
+                ),
+                const SizedBox(height: 16),
+                const ContrastCalculatorView()
+              ],
+            ),
           ),
         ),
       ],

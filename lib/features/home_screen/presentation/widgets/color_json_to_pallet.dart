@@ -79,6 +79,10 @@ class ColorJsonToPallet extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     final color = state.colors[index];
                     return AppColorCard(color: color);
+                    // return Container(
+                    //   height: 50,
+                    //   color: Colors.green,
+                    // );
                   },
                 ),
               ),
@@ -92,7 +96,31 @@ class ColorJsonToPallet extends StatelessWidget {
   Widget _inputSection(BuildContext context) {
     final bloc = context.read<HomeBloc>();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'Hex Color',
+          style: context.textTheme.bodyLarge,
+        ),
+        const SizedBox(height: 4),
+        AppTextField(
+          controller: bloc.hexInput,
+          backgroundColor: context.colorScheme.primaryContainer,
+          onChanged: (value) => (value) => context
+              .read<HomeBloc>()
+              .add(HomeColorTitleChangedEvent(value: value)),
+          hint: 'Hex Color',
+        ),
+        const SizedBox(height: 8),
+        Divider(
+          color: context.colorScheme.primary,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Json Color',
+          style: context.textTheme.bodyLarge,
+        ),
+        const SizedBox(height: 4),
         AppTextField(
           controller: bloc.colorTitle,
           backgroundColor: context.colorScheme.primaryContainer,

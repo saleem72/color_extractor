@@ -1,5 +1,7 @@
 //
 
+// ignore_for_file: constant_identifier_names
+
 // import 'dart:developer';
 import 'dart:math' as math;
 
@@ -319,5 +321,33 @@ extension ColorToMaterial on Color {
       triadic1: triadic1,
       triadic2: triadic2,
     );
+  }
+
+  double luminance() {
+    const RED = 0.2126;
+    const GREEN = 0.7152;
+    const BLUE = 0.0722;
+    const GAMMA = 2.4;
+
+    double transform(int value) {
+      final item = value / 255;
+      return item <= 0.03928
+          ? item / 12.92
+          : (math.pow((item + 0.055) / 1.055, GAMMA)).toDouble();
+    }
+
+    final redTransform = transform(red);
+    final greenTransform = transform(green);
+    final blueTransform = transform(blue);
+
+    return redTransform * RED + greenTransform * GREEN + blueTransform * BLUE;
+  }
+
+  double contrastRatio(Color color) {
+    var lum1 = luminance();
+    var lum2 = color.luminance();
+    var brightest = math.max(lum1, lum2);
+    var darkest = math.min(lum1, lum2);
+    return (brightest + 0.05) / (darkest + 0.05);
   }
 }

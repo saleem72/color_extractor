@@ -3,6 +3,9 @@
 import 'package:collection/collection.dart';
 import 'package:color_extractor/core/data/dtos/material_color_dto.dart';
 import 'package:color_extractor/core/domain/models/app_color.dart';
+import 'package:color_extractor/core/extensions/color_extension.dart';
+import 'package:color_extractor/core/extensions/color_to_material/color_extension.dart';
+import 'package:color_extractor/features/home_screen/domain/models/color_type.dart';
 import 'package:dartz/dartz.dart';
 import 'package:my_core/my_core.dart';
 
@@ -14,6 +17,19 @@ class HomeRepository {
       return right(colors);
     } catch (error) {
       return left(Failure(error.toString()));
+    }
+  }
+
+  Either<Failure, List<AppColor>> decodeHex(String hex) {
+    try {
+      final color = hex.toColor().toMaterialColor();
+      final shades = color.shades;
+
+      final colors = shades.asMap().map((index, e) => MapEntry(
+          colorDegrees[index], AppColor.fromColor(e, colorDegrees[index])));
+      return right(colors.values.toList());
+    } catch (e) {
+      return left(Failure(e.toString()));
     }
   }
 
